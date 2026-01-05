@@ -1,0 +1,204 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: #000;
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    overflow: hidden;
+    user-select: none;
+}
+
+.calculator-container {
+    width: 100%;
+    max-width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #000;
+}
+
+.display-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding: 20px;
+    padding-bottom: 40px;
+    min-height: 200px;
+}
+
+.display-expression {
+    font-size: 1.2em;
+    color: #999;
+    margin-bottom: 10px;
+    min-height: 1.5em;
+    word-break: break-all;
+    text-align: right;
+    width: 100%;
+    opacity: 0.8;
+    transition: all 0.3s ease;
+}
+
+.display-expression:not(:empty) {
+    opacity: 1;
+}
+
+/* 计算中状态：表达式大，结果小 */
+.display-area:not(.show-result) .display-expression {
+    font-size: 2.5em;
+    color: #fff;
+    font-weight: 300;
+    opacity: 1;
+}
+
+.display-result {
+    font-size: 4em;
+    font-weight: 300;
+    color: #fff;
+    text-align: right;
+    word-break: break-all;
+    line-height: 1.2;
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+/* 计算中状态：表达式大，结果小 */
+.display-area:not(.show-result) .display-result {
+    font-size: 1.2em;
+    color: #999;
+    font-weight: 400;
+}
+
+/* 结果显示状态：表达式小，结果大 */
+.display-area.show-result .display-expression {
+    font-size: 1.2em;
+    color: #999;
+    font-weight: 400;
+}
+
+.display-area.show-result .display-result {
+    font-size: 4em;
+    color: #fff;
+    font-weight: 300;
+}
+
+.buttons-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    padding: 20px;
+    padding-bottom: 40px;
+}
+
+.btn {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: none;
+    font-size: 1.8em;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.1s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    background: #333;
+    touch-action: manipulation;
+}
+
+.btn:active {
+    transform: scale(0.95);
+    opacity: 0.8;
+}
+
+.btn-number {
+    background: #333;
+    color: #fff;
+}
+
+.btn-number:active {
+    background: #555;
+}
+
+.btn-operator {
+    background: #333;
+    color: #fff;
+}
+
+.btn-operator:active {
+    background: #555;
+}
+
+.btn-function {
+    background: #333;
+    color: #fff;
+    font-size: 1.5em;
+}
+
+.btn-function:active {
+    background: #555;
+}
+
+.btn-equals {
+    background: #ff9500;
+    color: #fff;
+    font-size: 1.8em;
+}
+
+.btn-equals:active {
+    background: #ffad33;
+}
+
+.btn svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* 响应式设计 */
+@media (max-width: 480px) {
+    .display-result {
+        font-size: 3.5em;
+    }
+    
+    .buttons-grid {
+        gap: 10px;
+        padding: 15px;
+        padding-bottom: 30px;
+    }
+    
+    .btn {
+        font-size: 1.6em;
+    }
+}
+
+@media (min-width: 600px) {
+    .calculator-container {
+        max-width: 400px;
+        height: auto;
+        min-height: 700px;
+        border-radius: 0;
+    }
+    
+    .display-area {
+        min-height: 250px;
+    }
+}
+
+/* 防止双击缩放 */
+@media (touch-action: manipulation) {
+    * {
+        touch-action: manipulation;
+    }
+}

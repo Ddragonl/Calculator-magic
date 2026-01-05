@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生成512图标</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        canvas {
+            border: 1px solid #ddd;
+            margin: 20px auto;
+            display: block;
+        }
+        button {
+            background: #ff9500;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px;
+        }
+        button:hover {
+            background: #ffad33;
+        }
+        .instructions {
+            text-align: left;
+            margin-top: 20px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>生成 512x512 图标</h1>
+        <canvas id="canvas" width="512" height="512"></canvas>
+        <div>
+            <button onclick="generateIcon()">生成图标</button>
+            <button onclick="downloadIcon()">下载图标</button>
+        </div>
+        <div class="instructions">
+            <h3>使用说明：</h3>
+            <ol>
+                <li>点击"生成图标"按钮</li>
+                <li>点击"下载图标"按钮</li>
+                <li>保存为 <code>icon-512.png</code></li>
+                <li>将文件放到项目根目录</li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        function generateIcon() {
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+            const size = 512;
+            
+            // 清空画布
+            ctx.clearRect(0, 0, size, size);
+            
+            // 绘制黑色背景（圆角矩形）
+            const radius = size * 0.15;
+            ctx.fillStyle = '#000000';
+            ctx.beginPath();
+            ctx.moveTo(radius, 0);
+            ctx.lineTo(size - radius, 0);
+            ctx.quadraticCurveTo(size, 0, size, radius);
+            ctx.lineTo(size, size - radius);
+            ctx.quadraticCurveTo(size, size, size - radius, size);
+            ctx.lineTo(radius, size);
+            ctx.quadraticCurveTo(0, size, 0, size - radius);
+            ctx.lineTo(0, radius);
+            ctx.quadraticCurveTo(0, 0, radius, 0);
+            ctx.closePath();
+            ctx.fill();
+            
+            // 绘制等号（橙色）
+            const fontSize = size * 0.4;
+            ctx.fillStyle = '#ff9500';
+            ctx.font = `bold ${fontSize}px Arial`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('=', size / 2, size / 2);
+            
+            // 绘制加号（小圆圈）
+            const circleSize = size * 0.12;
+            const circleX = size / 2;
+            const circleY = size * 0.35;
+            ctx.fillStyle = '#ff9500';
+            ctx.beginPath();
+            ctx.arc(circleX, circleY, circleSize, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // 绘制加号符号
+            ctx.fillStyle = '#000000';
+            const plusSize = size * 0.06;
+            ctx.font = `bold ${plusSize}px Arial`;
+            ctx.fillText('+', circleX, circleY + plusSize * 0.3);
+        }
+        
+        function downloadIcon() {
+            const canvas = document.getElementById('canvas');
+            canvas.toBlob((blob) => {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'icon-512.png';
+                a.click();
+                URL.revokeObjectURL(url);
+            });
+        }
+        
+        // 页面加载时自动生成
+        window.onload = function() {
+            generateIcon();
+        };
+    </script>
+</body>
+</html>
+
