@@ -1,0 +1,6 @@
+{
+  "appId": "com.calculator.magic",
+  "appName": "魔法计算器",
+  "webDir": "www",
+  "bundledWebRuntime": false
+}
