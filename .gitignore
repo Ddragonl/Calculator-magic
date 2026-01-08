@@ -11,7 +11,8 @@ android/capacitor-cordova-android-plugins/build/
 android/.gradle/
 android/local.properties
 
-# APK构建产物（允许上传app-debug.apk）
+# APK构建产物
+*.apk
 *.aab
 
 # IDE
