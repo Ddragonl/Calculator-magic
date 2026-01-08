@@ -11,8 +11,7 @@ android/capacitor-cordova-android-plugins/build/
 android/.gradle/
 android/local.properties
 
-# APK构建产物
-*.apk
+# APK构建产物（允许上传app-debug.apk）
 *.aab
 
 # IDE
@@ -32,7 +31,4 @@ desktop.ini
 *.log
 *.tmp
 *.temp
-
-# 内部文档（可选，如果不想公开）
-项目文件整理说明.md
 
